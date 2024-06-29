@@ -3,19 +3,20 @@ import { useEffect, useState, CSSProperties } from "react"
 export const useAnimatedSale = (delay : number = 20, scGap : number = 0.01) => {
     const [scale, setScale] = useState<number>(0)
     const [animated, setAnimated] = useState<boolean>(false)
-    const [dir, setDir] = useState(1);
+    const [dir, setDir] = useState(1)
     return {
         scale, 
         start() {
+            console.log("DIR", dir)
             if (!animated) {
                 setAnimated(true)
                 const interval = setInterval(() => {
                     setScale((prev : number) => {
-                        if (prev > 1) {
+                        if (Math.abs(prev - scale) > 1) {
                             setAnimated(false)
                             clearInterval(interval)
-                            setDir(dir => dir * -1)
-                            return 0
+                            setDir(d => d * -1)
+                            return scale + dir 
                         }
                         return prev + scGap * dir  
                     })
@@ -64,7 +65,7 @@ export const useBlockRotStyle = (scale : number) => {
             const width = `${size}px`
             const height = `${size}px`
             const background = 'indigo'
-            const top = `${-size + (h * 0.5 * ds1)}px`
+            const top = `${-h / 2 + ((h * 0.5 - size) * ds1)}px`
             const left = `${-size}px`
             return {
                 position, 

@@ -9,7 +9,7 @@ interface BRSProps {
 const BlockRotStop = (props : BRSProps) => {
     const {parentStyle, blockStyle} = useBlockRotStyle(props.scale)
     return (
-        <div style = {parentStyle()}>
+        <div style = {parentStyle()} onClick = {props.onClick}>
             <div style = {blockStyle()}>
             </div>
         </div>
