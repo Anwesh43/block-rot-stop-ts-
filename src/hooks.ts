@@ -24,3 +24,18 @@ export const useAnimatedSale = (delay : number = 20, scGap : number = 0.01) => {
         }
     }
 }
+
+export const useDimension = () => {
+    const [w, setW] = useState(window.innerWidth)
+    const [h, setH] = useState(window.innerHeight)
+    useEffect(() => {
+        const resizeListener = () => {
+            setW(window.innerWidth)
+            setH(window.innerHeight)
+        }
+        window.addEventListener('resize', resizeListener, false)
+        return () => {
+            window.removeEventListener('resize', resizeListener, false)
+        }
+    }, [])
+}
